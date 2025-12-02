@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
-import { Product } from '../types';
-import useSearch from '../ui/smartsearch';
+import type { Product } from '../../types';
+import { useSearch } from '../../hooks/usersearch';
 
 interface SmartSearchProps {
 products: Product[];
