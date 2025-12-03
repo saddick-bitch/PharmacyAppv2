@@ -15,9 +15,9 @@ return (
 <div className="flex">
 {/* Tab Farmacia */}
 <button
-  onClick={() => setStoreType('Farmacia')}
+  onClick={() => setStoreType('farmacia')}
   className={`flex-1 py-3 px-6 flex items-center justify-center gap-2 transition-colors ${
-    storeType === 'Farmacia' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+    storeType === 'farmacia' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
   }`}
 >
   <span className="text-2xl">💊</span>
@@ -25,9 +25,9 @@ return (
 </button>
 {/* Tab Librería */}
 <button
-  onClick={() => setStoreType('Libreria')}
+  onClick={() => setStoreType('libreria')}
   className={`flex-1 py-3 px-6 flex items-center justify-center gap-2 transition-colors ${
-    storeType === 'Libreria' ? 'bg-secondary text-gray-900' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+    storeType === 'libreria' ? 'bg-secondary text-gray-900' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
   }`}
 >
   <span className="text-2xl">📚</span>
@@ -40,9 +40,9 @@ return (
 <div className="flex items-center justify-between gap-4">
 {/* Logo / Nombre */}
 <Link to="/" className="flex items-center gap-2 text-xl font-bold">
-<span className="text-3xl">{storeType === 'Farmacia' ? '💊' : '📚'}</span>
+<span className="text-3xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
 <span className="hidden sm:block">
-{storeType === 'Farmacia' ? 'San Rafael' : 'Marcela'}
+{storeType === 'farmacia' ? 'San Rafael' : 'Marcela'}
 </span>
 </Link>
 {/* Buscador */}
