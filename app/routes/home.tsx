@@ -46,7 +46,7 @@ const categoriasLibreria = ['Todos', 'Útiles Escolares', 'Papelería', 'Libros'
 const categorias = activeTab === 'farmacia' ? categoriasFarmacia : categoriasLibreria;
 const productosFiltrados = productos.filter(p => {
   const matchTipo = String(p.tipo).toLowerCase() === activeTab;
-  const matchCategoria = selectedCategory === 'todos' || p.categoria === selectedCategory;
+  const matchCategoria = selectedCategory === 'todos' || String(p.categoria).toLowerCase() === selectedCategory;
   return matchTipo && matchCategoria;
 });
 
