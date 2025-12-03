@@ -8,7 +8,7 @@ interface ProductCardProps {
   tipo: StoreType;
 }
 
-export function ProductCard({ producto, sucursal, colorPrimario, tipo }: ProductCardProps) {
+export function ProductCard({ producto, sucursal, colorPrimario, tipo, onOpen }: ProductCardProps & { onOpen?: (p: Product) => void }) {
   const whatsappMessage = encodeURIComponent(
     `Hola, me interesa este producto:\n\n` +
       `📦 ${producto.nombre}\n` +
@@ -24,6 +24,7 @@ export function ProductCard({ producto, sucursal, colorPrimario, tipo }: Product
       <div
         className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
         style={{ backgroundColor: `${colorPrimario}15` }}
+        onClick={() => onOpen?.(producto)}
       >
         {producto.img ? (
           <img
@@ -76,6 +77,7 @@ export function ProductCard({ producto, sucursal, colorPrimario, tipo }: Product
             className="p-2 rounded-lg transition-all hover:scale-110 flex items-center gap-2"
             style={{ backgroundColor: colorPrimario }}
             title="Consultar por WhatsApp"
+            onClick={(e) => e.stopPropagation()}
           >
             <MessageCircle size={20} className="text-white" />
           </a>

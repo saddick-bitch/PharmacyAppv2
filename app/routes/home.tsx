@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Search, MapPin, MessageCircle } from 'lucide-react';
-import type { Product, Sucursal } from '../../src/types';
+import type { Product, Sucursal, StoreType } from '../../src/types';
 import { useGeolocation } from '../../src/hooks/useGeolocation';
 import SmartSearch from '../../src/Layout/ui/smartsearch';
 import ProductCard from '../components/ProductCard';
 import { SUCURSALES, PRODUCTOS_EJEMPLO } from '../../src/data/constants';
+import { useTheme } from '../../src/context/Themecontext';
 export function meta() {
 return [
 
@@ -13,7 +14,9 @@ return [
 ];
 }
 export default function Home() {
-const [activeTab, setActiveTab] = useState<'farmacia' | 'libreria'>('farmacia');
+const { storeType, setStoreType } = useTheme();
+const activeTab: StoreType = storeType;
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 const [menuOpen, setMenuOpen] = useState(false);
 const [selectedSucursal, setSelectedSucursal] = useState<Sucursal>(SUCURSALES[0]);
 const [selectedCategory, setSelectedCategory] = useState('todos');
@@ -56,7 +59,7 @@ return (
 <div className="flex">
 {/* Tab Farmacia */}
 <button
-onClick={() => {setActiveTab('farmacia');
+onClick={() => {setStoreType('farmacia');
 setSelectedCategory('todos');
 setMenuOpen(false);
 }}
@@ -76,7 +79,7 @@ color: activeTab === 'farmacia' ? 'white' : '#666'
 {/* Tab Librería */}
 <button
 onClick={() => {
-setActiveTab('libreria');
+setStoreType('libreria');
 setSelectedCategory('todos');
 setMenuOpen(false);
 }}
@@ -206,7 +209,8 @@ producto={producto}
 sucursal={selectedSucursal}
 colorPrimario={colorPrimario}
 tipo={activeTab}
-/>
+  onOpen={(p) => setSelectedProduct(p)}
+  />
 ))}
 </div>
 
@@ -216,6 +220,43 @@ tipo={activeTab}
 <h3 className="text-xl font-bold text-gray-600">No se encontraron productos</h3>
 <p className="text-gray-500 mt-2">Intenta con otra búsqueda o categoría</p>
 </div>
+)}
+
+{/* Modal / Full product view */}
+{selectedProduct && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="bg-white rounded-lg max-w-3xl w-full shadow-xl overflow-auto">
+      <div className="p-4 flex justify-between items-start">
+        <h2 className="text-xl font-bold">{selectedProduct.nombre}</h2>
+        <button className="text-gray-500" onClick={() => setSelectedProduct(null)}>Cerrar</button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        <div className="flex items-center justify-center bg-gray-100">
+          {selectedProduct.img ? (
+            <img src={selectedProduct.img} alt={selectedProduct.nombre} className="max-h-96 object-contain" />
+          ) : (
+            <div className="text-6xl">{activeTab === 'farmacia' ? '💊' : '📚'}</div>
+          )}
+        </div>
+        <div>
+          <p className="text-lg font-semibold" style={{ color: colorPrimario }}>${selectedProduct.precio.toFixed(2)}</p>
+          {selectedProduct.componente && <p className="text-sm text-blue-600">{selectedProduct.componente}</p>}
+          {selectedProduct.marca && <p className="text-sm text-gray-500">{selectedProduct.marca}</p>}
+          {selectedProduct.descripcion && <p className="mt-4 text-gray-700">{selectedProduct.descripcion}</p>}
+          <div className="mt-6">
+            <a
+              className="inline-block px-4 py-2 bg-green-500 text-white rounded"
+              href={`https://wa.me/${selectedSucursal.whatsapp}?text=${encodeURIComponent(`Hola, quisiera información sobre ${selectedProduct.nombre}`)}`}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Consultar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 )}
 
 </main>
