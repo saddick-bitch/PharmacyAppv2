@@ -113,7 +113,7 @@ style={{ color: colorPrimario }}
 
 {/* Buscador */}
 <div className="flex-1 max-w-md">
-<SmartSearch products={productos} />
+  <SmartSearch products={productos} tipo={activeTab} />
 </div>
 
 {/* Selector de Sucursal */}
