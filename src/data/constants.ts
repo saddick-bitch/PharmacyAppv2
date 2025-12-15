@@ -296,8 +296,117 @@ lng: -89.186035,
 horario: 'Lun-Dom: 7:00am - 8:00pm',
 },
 
+{
+    id: 'geranio',
+nombre: 'Farmacia San Rafael #32',
+direccion: 'SAN SALVADOR,AGUILARES',
+whatsapp: '50376006559',
+lat: 13.954507,
+lng: -89.187791,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'colibri',
+nombre: 'Farmacia San Rafael #33',
+direccion: 'SAN SALVADOR,AGUILARES',
+whatsapp: '50378599989',
+lat: 13.959101,
+lng: -89.186438,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'clavel',
+nombre: 'Farmacia San Rafael #34',
+direccion: 'CHALATENANGO,NUEVA CONCEPCION',
+whatsapp: '50378554728',
+lat: 14.128257,
+lng: -89.292118,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'aguila',
+nombre: 'Farmacia San Rafael #35',
+direccion: 'CHALATENANGO,TEJUTLA',
+whatsapp: '50377453995',
+lat: 14.169760,
+lng: -89.100656,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
 
 
+{
+    id: 'orion',
+nombre: 'Farmacia San Rafael #36',
+direccion: 'CHALATENANGO, LA PALMA',
+whatsapp: '50377442216',
+lat: 14.316455,
+lng: -89.169507,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'gaviota',
+nombre: 'Farmacia San Rafael #37',
+direccion: 'SAN SALVADOR,SAN SALVADOR',
+whatsapp: '50378039374',
+lat: 13.727341,
+lng: -89.202525,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+//Pendiente de actualizacion de coordenadas
+{
+    id: 'pelicano',
+nombre: 'Farmacia San Rafael #38',
+direccion: 'SAN SALVADOR,SOYAPANGO',
+whatsapp: '50377446175',
+lat: 11.000000,
+lng: -90.000000,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'halcon',
+nombre: 'Farmacia San Rafael #39',
+direccion: 'CHALATENANGO,TEJUTLA',
+whatsapp: '50378602560',
+lat: 14.104248,
+lng: -89.151901,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'tucan',
+nombre: 'Farmacia San Rafael #40',
+direccion: 'CCHALATENANGO, LA PALMA',
+whatsapp: '50378604314',
+lat: 14.316561,
+lng: -89.170776,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'london',
+nombre: 'Farmacia San Rafael #41',
+direccion: 'CHALATENANGO, El PARAISO',
+whatsapp: '50378425488',
+lat: 14.106754,
+lng:-89.068392,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'golondrina',
+nombre: 'Farmacia San Rafael #42',
+direccion: 'CHALATENANGO, TEJUTLA,',
+whatsapp: '50378624146',
+lat: 14.078385,
+lng:-89.141246,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
 ];
 // Productos de ejemplo - FARMACIA
 export const PRODUCTOS_EJEMPLO: Product[] = [
