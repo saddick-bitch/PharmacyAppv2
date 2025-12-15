@@ -5,6 +5,7 @@ import { SUCURSALES, PRODUCTOS_EJEMPLO } from '../../src/data/constants';
 import SmartSearch from '../../src/Layout/ui/smartsearch';
 import ProductCard from '../components/ProductCard';
 import { ProductModal } from '../components/ProductModal';
+import MiniMap from '../components/MiniMap';
 import type { Product, Sucursal } from '../../src/types';
 import { useGeolocation } from '../../src/hooks/useGeolocation';
 import { getDistance } from '../../src/utils/geolocation';
@@ -324,15 +325,24 @@ Nuestra misión es brindar salud y bienestar a cada familia salvadoreña con cal
 </div>
 </div>
 <div className="bg-white rounded-xl shadow-md overflow-hidden">
-
-<div className="h-48 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center">
-<span className="text-6xl">🏪</span>
+<div className="h-48">
+  {selectedSucursal && (
+    <MiniMap
+        position={[selectedSucursal.lat, selectedSucursal.lng]}
+        pharmacyName={selectedSucursal.nombre}
+    />
+  )}
 </div>
 <div className="p-6">
 <h3 className="font-bold text-xl mb-2">Nuestras sucursales</h3>
 <p className="text-gray-600 text-sm">
 Estamos presentes en múltiples ubicaciones para estar cerca de ti cuando nos necesites.
 </p>
+{selectedSucursal && location && (
+    <p className="text-sm text-green-600 font-bold mt-2">
+        ¡La sucursal más cercana es {selectedSucursal.nombre}!
+    </p>
+)}
 </div>
 </div>
 </div>
@@ -437,5 +447,3 @@ title="Llamar al Call Center"
 </div>
 );
 }
-
-
