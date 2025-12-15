@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Menu, X, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { useTheme } from '../../src/context/Themecontext';
 import { SUCURSALES, PRODUCTOS_EJEMPLO } from '../../src/data/constants';
 import SmartSearch from '../../src/Layout/ui/smartsearch';
 import ProductCard from '../components/ProductCard';
 import { ProductModal } from '../components/ProductModal';
-import MiniMap from '../components/MiniMap';
+const MiniMap = lazy(() => import('../components/MiniMap'));
 import type { Product, Sucursal } from '../../src/types';
 import { useGeolocation } from '../../src/hooks/useGeolocation';
 import { getDistance } from '../../src/utils/geolocation';
@@ -18,6 +18,7 @@ export function meta() {
 }
 
 export default function Home() {
+  
   const { storeType, setStoreType } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedSucursal, setSelectedSucursal] = useState<Sucursal | null>(null);
@@ -326,14 +327,17 @@ Nuestra misión es brindar salud y bienestar a cada familia salvadoreña con cal
 </div>
 <div className="bg-white rounded-xl shadow-md overflow-hidden">
 <div className="h-48">
-  {selectedSucursal && (
-    <MiniMap
+   <Suspense fallback={<div style={{ height: "400px" }}>Cargando mapa...</div>}>
+    {selectedSucursal && (
+      <MiniMap
         position={[selectedSucursal.lat, selectedSucursal.lng]}
         pharmacyName={selectedSucursal.nombre}
-    />
-  )}
+      />
+    )}
+  </Suspense>
 </div>
 <div className="p-6">
+
 <h3 className="font-bold text-xl mb-2">Nuestras sucursales</h3>
 <p className="text-gray-600 text-sm">
 Estamos presentes en múltiples ubicaciones para estar cerca de ti cuando nos necesites.
