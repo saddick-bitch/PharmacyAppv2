@@ -11,9 +11,9 @@ interface ProductCardProps {
 export function ProductCard({ producto, sucursal, colorPrimario, tipo, onOpen }: ProductCardProps & { onOpen?: (p: Product) => void }) {
   const whatsappMessage = encodeURIComponent(
     `Hola, me interesa este producto:\n\n` +
-      `📦 ${producto.nombre}\n` +
-      `${producto.componente ? `💊 Componente: ${producto.componente}\n` : ''}` +
-      `💰 Precio: $${producto.precio.toFixed(2)}\n` +
+      `📦 *${producto.nombre}*\n` +
+      `${producto.componente ? `💊 *Componentes:* ${producto.componente}\n` : ''}` +
+      `� Precio: $${producto.precio.toFixed(2)}\n` +
       `📍 Sucursal: ${sucursal.nombre}\n\n` +
       `¿Está disponible?`
   );
@@ -53,7 +53,7 @@ export function ProductCard({ producto, sucursal, colorPrimario, tipo, onOpen }:
         </h3>
         {/* Componente (solo farmacia) */}
         {producto.componente && (
-          <p className="text-xs text-blue-600 mb-2">{producto.componente}</p>
+          <p className="text-xs text-blue-600 mb-2"><span className="font-bold">Componentes:</span> {producto.componente}</p>
         )}
         {/* Marca/Laboratorio */}
         {(producto.marca || producto.laboratorio) && (
@@ -63,6 +63,22 @@ export function ProductCard({ producto, sucursal, colorPrimario, tipo, onOpen }:
         {producto.descripcion && (
           <p className="text-sm text-gray-600 mb-3 line-clamp-2">{producto.descripcion}</p>
         )}
+        {/* Info Adicional */}
+        <div className="text-xs text-gray-700 space-y-1 mb-3">
+          {producto.indicaciones && (
+            <p><span className="font-bold">Indicaciones:</span> {producto.indicaciones}</p>
+          )}
+          {producto.contraindicaciones && (
+            <p><span className="font-bold">Contraindicaciones:</span> {producto.contraindicaciones}</p>
+          )}
+          {producto.requiereReceta !== undefined && (
+            <p className="font-semibold">
+              {producto.requiereReceta
+                ? 'Requiere receta médica'
+                : 'Venta libre'}
+            </p>
+          )}
+        </div>
         {/* Precio y botón de WhatsApp */}
         <div className="flex items-center justify-between">
           <div>

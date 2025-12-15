@@ -14,6 +14,9 @@ export interface Product {
 	laboratorio?: string;
 	// extra optional fields used in constants
 	nombreComercial?: string;
+	 indicaciones?: string;
+  contraindicaciones?: string;
+  requiereReceta?: boolean;
 	componente?: string;
 	sku?: string;
 }

@@ -6,9 +6,10 @@ import type { Product, StoreType } from '../../types';
 interface SmartSearchProps {
 	products: Product[];
 	tipo?: StoreType;
+	onSelectProduct?: (product: Product) => void;
 }
 
-export default function SmartSearch({ products, tipo }: SmartSearchProps) {
+export default function SmartSearch({ products, tipo, onSelectProduct }: SmartSearchProps) {
 	const effectiveTipo: StoreType = tipo ?? (products && products.length ? products[0].tipo : 'farmacia');
 const [query, setQuery] = useState('');
 const [showResults, setShowResults] = useState(false);
@@ -85,8 +86,12 @@ part.toLowerCase() === query.toLowerCase() ? (
 const handleSelectProduct = (product: Product) => {
 setQuery('');
 setShowResults(false);
-// Aquí puedes agregar navegación o modal con detalles
-console.log('Producto seleccionado:', product);
+if (onSelectProduct) {
+  onSelectProduct(product);
+} else {
+  // Aquí puedes agregar navegación o modal con detalles
+  console.log('Producto seleccionado:', product);
+}
 };
 return (
 <div ref={searchRef} className="relative w-full">
@@ -107,7 +112,7 @@ className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outlin
 {/* Resultados de búsqueda */}
 {showResults && query.length >= 2 && results.length > 0 && (
 <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto">
-{results.map(({ product, score }) => (
+{results.map(({ product }) => (
 	<button
 		key={product.id}
 		onClick={() => handleSelectProduct(product)}

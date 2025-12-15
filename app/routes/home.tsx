@@ -4,17 +4,38 @@ import { useTheme } from '../../src/context/Themecontext';
 import { SUCURSALES, PRODUCTOS_EJEMPLO } from '../../src/data/constants';
 import SmartSearch from '../../src/Layout/ui/smartsearch';
 import ProductCard from '../components/ProductCard';
+import { ProductModal } from '../components/ProductModal';
+import type { Product, Sucursal } from '../../src/types';
+import { useGeolocation } from '../../src/hooks/useGeolocation';
+import { getDistance } from '../../src/utils/geolocation';
+
 export function meta() {
-return [
-{ title: "Farmacias San Rafael & Librerías Marcela" },
-{ name: "description", content: "Tu farmacia y librería de confianza en El Salvador" }
-];
+  return [
+    { title: "Farmacias San Rafael & Librerías Marcela" },
+    { name: "description", content: "Tu farmacia y librería de confianza en El Salvador" }
+  ];
 }
+
 export default function Home() {
-const { storeType, setStoreType } = useTheme();
-const [menuOpen, setMenuOpen] = useState(false);
-const [selectedSucursal, setSelectedSucursal] = useState(SUCURSALES[0]);
-const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
+  const { storeType, setStoreType } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedSucursal, setSelectedSucursal] = useState<Sucursal | null>(null);
+  const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { location } = useGeolocation();
+
+  useEffect(() => {
+    if (location) {
+      const nearest = SUCURSALES.reduce((prev, curr) => {
+        const prevDistance = getDistance(location.lat, location.lng, prev.lat, prev.lng);
+        const currDistance = getDistance(location.lat, location.lng, curr.lat, curr.lng);
+        return prevDistance < currDistance ? prev : curr;
+      });
+      setSelectedSucursal(nearest);
+    } else {
+      setSelectedSucursal(SUCURSALES[0]);
+    }
+  }, [location]);
 const colorPrimario = storeType === 'farmacia' ? '#114b8c' : '#f9d000';
 const colorTexto = storeType === 'farmacia' ? 'white' : '#114b8c';
 // Datos de promociones por tipo
@@ -42,6 +63,15 @@ setCurrentPromoIndex((prev) => (prev + 1) % promociones.length);
 }, 5000);
 return () => clearInterval(interval);
 }, [promociones.length]);
+if (!selectedSucursal) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-2xl font-bold" style={{ color: colorPrimario }}>
+          Cargando...
+        </div>
+      </div>
+    );
+  }
 return (
 <div className="min-h-screen bg-gray-50">
 {/* HEADER */}
@@ -102,7 +132,7 @@ style={{ color: colorPrimario }}
 </div>
 {/* Buscador */}
 <div className="flex-1 max-w-md">
-<SmartSearch products={PRODUCTOS_EJEMPLO} tipo={storeType} />
+<SmartSearch products={PRODUCTOS_EJEMPLO} tipo={storeType} onSelectProduct={setSelectedProduct} />
 </div>
 {/* Selector de Sucursal */}
 <select
@@ -247,6 +277,7 @@ producto={producto}
 sucursal={selectedSucursal}
 colorPrimario={colorPrimario}
 tipo={storeType}
+onOpen={setSelectedProduct}
 />
 ))}
 </div>
@@ -394,6 +425,15 @@ title="Llamar al Call Center"
 <Phone size={28} className="text-white" />
 </a>
 </div>
+
+{/* Product Modal */}
+<ProductModal
+  product={selectedProduct}
+  sucursal={selectedSucursal}
+  colorPrimario={colorPrimario}
+  tipo={storeType}
+  onClose={() => setSelectedProduct(null)}
+/>
 </div>
 );
 }
