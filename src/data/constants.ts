@@ -67,6 +67,237 @@ lat: 13.955720,
 lng: -89.187350,
 horario: 'Lun-Dom: 7:00am - 8:00pm',
 },
+
+{
+    id: 'aries',
+nombre: 'Farmacia San Rafael #7',
+direccion: 'SAN SALVADOR,AGUILARES',
+whatsapp: '50378039266',
+lat: 13.955720,
+lng: -89.187350,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+{
+    id: 'tauro',
+nombre: 'Farmacia San Rafael #8',
+direccion: 'CHALATENANGO,TEJUTLA',
+whatsapp: '50378039335',
+lat: 14.079027,
+lng: -89.141451,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+{
+    id: 'leo',
+nombre: 'Farmacia San Rafael #9',
+direccion: 'CHALATENANGO,NUEVA CONCEPCION',
+whatsapp: '50378039343',
+lat: 14.129420,
+lng: -89.291971,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+{
+    id: 'sagitario',
+nombre: 'Farmacia San Rafael #10',
+direccion: 'CHALATENANGO,NUEVA CONCEPCION',
+whatsapp: '50378039364',
+lat: 14.088271,
+lng: -89.145242,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'cancer',
+nombre: 'Farmacia San Rafael #11',
+direccion: 'LA LIBERTAD, ANTIGUO CUSCATLAN',
+whatsapp: '50378033537',
+lat: 13.667765,
+lng: -89.256392,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'jupiter',
+nombre: 'Farmacia San Rafael #12',
+direccion: 'CHALATENANGO, LA PALMA',
+whatsapp: '50378033537',
+lat: 14.315607,
+lng: -89.168931,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+//Pendiente de actualizacion de coordenadas
+{
+    id: 'saturno',
+nombre: 'Farmacia San Rafael #13',
+direccion: 'CHALATENANGO, LA PALMA',
+whatsapp: '50378033537',
+lat: 14.000000,
+lng: -89.000000,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'venus',
+nombre: 'Farmacia San Rafael #14',
+direccion: 'LA LIBERTAD, ANTIGUO CUSCATLAN',
+whatsapp: '50377456075',
+lat: 13.662258,
+lng: -89.252646,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'neptuno',
+nombre: 'Farmacia San Rafael #15',
+direccion: 'CUSCATLAN,SUCHITOTO',
+whatsapp: '50378039390',
+lat: 13.936998,
+lng: -89.026116,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'mercurio',
+nombre: 'Farmacia San Rafael #16',
+direccion: 'CHALATENANGO,CHALATENANGO',
+whatsapp: '50378033594',
+lat: 14.056797,
+lng: -89.000725,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'joya',
+nombre: 'Farmacia San Rafael #17',
+direccion: 'CHALATENANGO, SAN IGNACIO',
+whatsapp: '50378033545',
+lat: 14.339791,
+lng: -89.176229,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'sol',
+nombre: 'Farmacia San Rafael #18',
+direccion: 'CHALATENANGO, CITALA',
+whatsapp: '50378552231',
+lat: 14.370055,
+lng: -89.209624,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'estrella',
+nombre: 'Farmacia San Rafael #19',
+direccion: 'LA LIBERTAD, SANTA TECLA',
+whatsapp: '50378039267',
+lat: 13.679537,
+lng: -89.284837,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'luna',
+nombre: 'Farmacia San Rafael #20',
+direccion: 'CHALATENANGO, NUEVA CONCEPCION',
+whatsapp: '50378039250',
+lat: 14.127552,
+lng: -89.291467,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+//Pendiente de actualizacion de coordenadas
+{
+    id: 'marte',
+nombre: 'Farmacia San Rafael #21',
+direccion: 'CHALATENANGO, CHALATENANGO',
+whatsapp: '50378033528',
+lat: 11.000000,
+lng: -89.000000,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'sueños',
+nombre: 'Farmacia San Rafael #23',
+direccion: 'CHALATENANGO, LA REINA',
+whatsapp: '50378597695',
+lat: 14.193441,
+lng: -89.148903,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'gardenia',
+nombre: 'Farmacia San Rafael #24',
+direccion: 'LA LIBERTAD, SANTA TECLA',
+whatsapp: '50378621073',
+lat: 13.682852,
+lng: -89.276652,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'girasol',
+nombre: 'Farmacia San Rafael #25',
+direccion: 'CHALATENANGO, CHALATENANGO',
+whatsapp: '50376052452',
+lat: 14.039883,
+lng: -88.934816,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+{
+    id: 'lirios',
+nombre: 'Farmacia San Rafael #26',
+direccion: 'LA LIBERTAD,SAN JUAN OPICO',
+whatsapp: '50378596577',
+lat: 13.793530,
+lng: -89.359370,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'magnolia',
+nombre: 'Farmacia San Rafael #27',
+direccion: 'LA LIBERTAD, SANTA TECLA',
+whatsapp: '50378597883',
+lat: 13.674277,
+lng: -89.285617,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'orquidea',
+nombre: 'Farmacia San Rafael #28',
+direccion: 'SAN SALVADOR,AGUILARES',
+whatsapp: '50370393924',
+lat: 13.957934,
+lng: -89.187193,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'torogoz',
+nombre: 'Farmacia San Rafael #29',
+direccion: 'CUSCATLAN,SUCHITOTO',
+whatsapp: '50376005586',
+lat: 13.936603,
+lng: -89.026653,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+{
+    id: 'virgo',
+nombre: 'Farmacia San Rafael #31',
+direccion: 'SAN SALVADOR,AGUILARES',
+whatsapp: '50378554079',
+lat: 113.957392,
+lng: -89.186035,
+horario: 'Lun-Dom: 7:00am - 8:00pm',
+},
+
+
+
 ];
 // Productos de ejemplo - FARMACIA
 export const PRODUCTOS_EJEMPLO: Product[] = [
