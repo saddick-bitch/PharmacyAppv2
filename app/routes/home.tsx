@@ -5,7 +5,7 @@ import { SUCURSALES, PRODUCTOS_EJEMPLO } from '../../src/data/constants';
 import SmartSearch from '../../src/Layout/ui/smartsearch';
 import ProductCard from '../components/ProductCard';
 import { ProductModal } from '../components/ProductModal';
-const MiniMap = lazy(() => import('../components/MiniMap'));
+const MiniMap = lazy(() => import('../../src/components/MiniMap'));
 import type { Product, Sucursal } from '../../src/types';
 import { useGeolocation } from '../../src/hooks/useGeolocation';
 import { getDistance } from '../../src/utils/geolocation';
