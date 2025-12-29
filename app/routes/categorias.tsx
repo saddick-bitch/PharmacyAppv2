@@ -303,7 +303,7 @@ export default function Categorias() {
           onClose={() => setSelectedProduct(null)}
           sucursal={selectedSucursal}
           colorPrimario={colorPrimario}
-          onConsultar={handleConsultar}
+          tipo={storeType}
         />
       )}
 
