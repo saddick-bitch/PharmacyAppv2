@@ -32,7 +32,7 @@ const MiniMap = ({ position, pharmacyName }: MiniMapProps) => {
   }
 
   return (
-    <div style={{ height: '100%', width: '100%', position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+    <div style={{ height: '100%', width: '100%', position: 'relative', overflow: 'hidden', borderRadius: '8px', zIndex: 1 }}>
       <MapContainer 
         center={position} 
         zoom={15} 
