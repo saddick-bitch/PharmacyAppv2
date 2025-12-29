@@ -327,7 +327,7 @@ Nuestra misión es brindar salud y bienestar a cada familia salvadoreña con cal
 </div>
 <div className="bg-white rounded-xl shadow-md overflow-hidden">
 <div className="h-48">
-   <Suspense fallback={<div style={{ height: "400px" }}>Cargando mapa...</div>}>
+   <Suspense fallback={<div style={{ height: "100%" }}>Cargando mapa...</div>}>
     {selectedSucursal && (
       <MiniMap
         position={[selectedSucursal.lat, selectedSucursal.lng]}
