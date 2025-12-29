@@ -3,7 +3,7 @@
   "installCommand": "npm install --legacy-peer-deps",
   "functions": {
     "app/entry.server.tsx": {
-      "runtime": "@vercel/node@20"
+      "runtime": "nodejs20.x"
     }
   },
   "routes": [
