@@ -1,11 +1,6 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install --legacy-peer-deps",
-  "functions": {
-    "app/entry.server.tsx": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "routes": [
     {
       "src": "/(.*)",
