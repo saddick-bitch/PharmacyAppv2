@@ -96,7 +96,7 @@ if (onSelectProduct) {
 return (
 <div ref={searchRef} className="relative w-full">
 <div className="relative">
-<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
 <input
 type="text"
 value={query}
@@ -106,25 +106,25 @@ setShowResults(true);
 }}
 onFocus={() => setShowResults(true)}
 placeholder={`Buscar en ${effectiveTipo === 'farmacia' ? 'farmacia' : 'librería'}...`}
-className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
+className="w-full pl-10 pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm sm:text-base"
 />
 </div>
 {/* Resultados de búsqueda */}
 {showResults && query.length >= 2 && results.length > 0 && (
-<div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto">
+<div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 sm:max-h-96 overflow-y-auto">
 {results.map(({ product }) => (
 	<button
 		key={product.id}
 		onClick={() => handleSelectProduct(product)}
-className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 border-b last:border-b-0 transition-colors"
+className="w-full px-3 sm:px-4 py-2 sm:py-3 text-left hover:bg-gray-50 flex items-center gap-2 sm:gap-3 border-b last:border-b-0 transition-colors"
 >
 {/* Icono del producto */}
-<div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl flex-shrink-0">
+<div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded flex items-center justify-center text-xl sm:text-2xl flex-shrink-0">
 {effectiveTipo === 'farmacia' ? '💊' : '📚'}
 </div>
 {/* Información del producto */}
 <div className="flex-1 min-w-0">
-<p className="font-semibold text-gray-900 truncate">
+<p className="font-semibold text-gray-900 text-sm sm:text-base truncate">
 {highlightMatch(product.nombre, query)}
 </p>
 {/* Mostrar componente si existe */}
@@ -152,7 +152,7 @@ className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 b
 </div>
 {/* Precio */}
 		<div className="flex flex-col items-end flex-shrink-0">
-			<p className="font-bold text-blue-600 text-lg">
+			<p className="font-bold text-blue-600 text-sm sm:text-lg">
 				${product.precio.toFixed(2)}
 			</p>
 			{/* Indicador de relevancia (solo para debug)
@@ -165,16 +165,16 @@ className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 b
 )}
 {/* Mensaje cuando no hay resultados */}
 {showResults && query.length >= 2 && results.length === 0 && (
- <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl p-6 text-center">
-<div className="text-4xl mb-2">🔍</div>
-<p className="text-gray-700 font-semibold mb-1">
+ <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl p-4 sm:p-6 text-center">
+<div className="text-3xl sm:text-4xl mb-2">🔍</div>
+<p className="text-gray-700 font-semibold mb-1 text-sm sm:text-base">
 No se encontraron productos
 </p>
-<p className="text-sm text-gray-500">
+<p className="text-xs sm:text-sm text-gray-500">
 Intenta con otro término de búsqueda
 </p>
 {/* Sugerencias */}
-<div className="mt-4 text-left bg-gray-50 p-3 rounded">
+<div className="mt-3 sm:mt-4 text-left bg-gray-50 p-2 sm:p-3 rounded">
 <p className="text-xs font-semibold text-gray-600 mb-2">💡 Sugerencias:</p>
 <ul className="text-xs text-gray-600 space-y-1">
 <li>• Verifica la ortografía</li>
@@ -187,8 +187,8 @@ Intenta con otro término de búsqueda
 )}
 {/* Mensaje de mínimo caracteres */}
 {showResults && query.length > 0 && query.length < 2 && (
-<div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl p-4 text-center">
-<p className="text-sm text-gray-500">
+<div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl p-3 sm:p-4 text-center">
+<p className="text-xs sm:text-sm text-gray-500">
 Escribe al menos 2 caracteres para buscar
 </p>
 </div>

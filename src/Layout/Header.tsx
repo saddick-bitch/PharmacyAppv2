@@ -46,7 +46,7 @@ return (
 </span>
 </Link>
 {/* Buscador */}
-<div className="flex-1 max-w-2xl">
+<div className="flex-1 max-w-sm sm:max-w-md lg:max-w-2xl">
   <SmartSearch products={products} tipo={storeType} />
 </div>
 

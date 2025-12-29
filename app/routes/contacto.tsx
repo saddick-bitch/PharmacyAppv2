@@ -76,7 +76,7 @@ export default function Contacto() {
                   const sucursal = SUCURSALES.find(s => s.id === e.target.value);
                   if (sucursal) setSelectedSucursal(sucursal);
                 }}
-                className="hidden sm:block px-4 py-2 border border-gray-300 rounded-lg focus:outline-none text-gray-900 text-sm"
+                className="block sm:block px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 text-sm w-full sm:w-auto mt-2 sm:mt-0"
                 style={{ borderColor: colorPrimario }}
               >
                 {SUCURSALES.map(sucursal => (
@@ -86,8 +86,10 @@ export default function Contacto() {
                 ))}
               </select>
             </div>
-            <nav className="hidden lg:flex items-center gap-6 mt-3 text-sm font-semibold">
+            <nav className="hidden lg:flex items-center justify-center gap-6 mt-3 text-sm font-semibold">
               <a href="/" className="hover:opacity-70" style={{ color: colorPrimario }}>Inicio</a>
+              <a href="/productos-destacados" className="hover:opacity-70" style={{ color: colorPrimario }}>Productos Destacados</a>
+              <a href="/categorias" className="hover:opacity-70" style={{ color: colorPrimario }}>Categorías</a>
               <a href="/promociones" className="hover:opacity-70" style={{ color: colorPrimario }}>Promociones</a>
               <a href="/rafapuntos" className="hover:opacity-70" style={{ color: colorPrimario }}>Rafapuntos</a>
               <a href="/conocenos" className="hover:opacity-70" style={{ color: colorPrimario }}>Conócenos</a>
@@ -101,19 +103,27 @@ export default function Contacto() {
       {menuOpen && (
         <>
           <div className="fixed inset-0 bg-black bg-opacity-50 z-30" onClick={() => setMenuOpen(false)} />
-          <div className="fixed top-[180px] left-0 h-[calc(100vh-180px)] w-64 bg-white shadow-lg z-40">
+          <div className="fixed top-[200px] sm:top-[180px] left-0 h-[calc(100vh-200px)] sm:h-[calc(100vh-180px)] w-64 bg-white shadow-lg z-40">
             <div className="p-6">
               <h3 className="font-bold text-lg mb-4" style={{ color: colorPrimario }}>Menú</h3>
               <nav className="space-y-2">
-                {['Inicio', 'Promociones', 'Rafapuntos', 'Conócenos', 'Contacto'].map((item) => (
+                {[
+                  { name: 'Inicio', href: '/' },
+                  { name: 'Productos Destacados', href: '/productos-destacados' },
+                  { name: 'Categorías', href: '/categorias' },
+                  { name: 'Promociones', href: '/promociones' },
+                  { name: 'Rafapuntos', href: '/rafapuntos' },
+                  { name: 'Conócenos', href: '/conocenos' },
+                  { name: 'Contacto', href: '/contacto' }
+                ].map((item) => (
                   <a
-                    key={item}
-                    href={`/${item.toLowerCase().replace(' ', '')}`}
+                    key={item.name}
+                    href={item.href}
                     className="block px-4 py-2 rounded-lg hover:bg-gray-100"
                     style={{ color: colorPrimario }}
                     onClick={() => setMenuOpen(false)}
                   >
-                    {item}
+                    {item.name}
                   </a>
                 ))}
               </nav>

@@ -23,6 +23,11 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedSucursal, setSelectedSucursal] = useState<Sucursal | null>(null);
   const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
+  const [iconErrors, setIconErrors] = useState<{[key: string]: boolean}>({});
+
+  const handleIconError = (iconType: string) => {
+    setIconErrors(prev => ({ ...prev, [iconType]: true }));
+  };
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { location } = useGeolocation();
 
@@ -89,8 +94,11 @@ color: storeType === 'farmacia' ? 'white' : '#666'
 }}
 >
 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-
-<div className="text-2xl">💊</div>
+{!iconErrors.farmacia ? (
+  <img src="/icons/farmacia.png" alt="Farmacia" className="w-8 h-8" onError={() => handleIconError('farmacia')} />
+) : (
+  <div className="text-2xl">💊</div>
+)}
 </div>
 <div className="text-left hidden sm:block">
 <div className="font-bold text-sm">FARMACIAS</div>
@@ -106,7 +114,11 @@ color: storeType === 'libreria' ? '#114b8c' : '#666'
 }}
 >
 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-<div className="text-2xl">📚</div>
+{!iconErrors.libreria ? (
+  <img src="/icons/libreria.png" alt="Librería" className="w-8 h-8" onError={() => handleIconError('libreria')} />
+) : (
+  <div className="text-2xl">📚</div>
+)}
 </div>
 <div className="text-left hidden sm:block">
 <div className="font-bold text-sm">LIBRERÍAS</div>
@@ -129,8 +141,13 @@ style={{ color: colorPrimario }}
 {menuOpen ? <X size={24} /> : <Menu size={24} />}
 </button>
 {/* Logo (solo móvil) */}
-<div className="lg:hidden text-xl font-bold" style={{ color: colorPrimario }}>
-{storeType === 'farmacia' ? '💊' : '📚'}
+<div className="lg:hidden text-xl font-bold flex items-center gap-2" style={{ color: colorPrimario }}>
+{!iconErrors[storeType] ? (
+  <img src={storeType === 'farmacia' ? '/icons/farmacia.png' : '/icons/libreria.png'} alt={storeType === 'farmacia' ? 'Farmacia' : 'Librería'} className="w-6 h-6" onError={() => handleIconError(storeType)} />
+) : (
+  <span className="text-2xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
+)}
+<span>{storeType === 'farmacia' ? 'San Rafael' : 'Marcela'}</span>
 </div>
 {/* Buscador */}
 <div className="flex-1 max-w-md">
@@ -143,7 +160,7 @@ onChange={(e) => {
 const sucursal = SUCURSALES.find(s => s.id === e.target.value);
 if (sucursal) setSelectedSucursal(sucursal);
 }}
-className="hidden sm:block px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 text-gray-900 text-sm"
+className="block sm:block px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 text-sm w-full sm:w-auto mt-2 sm:mt-0"
 style={{ borderColor: colorPrimario }}
 >
 {SUCURSALES.map(sucursal => (
@@ -154,9 +171,13 @@ style={{ borderColor: colorPrimario }}
 </select>
 </div>
 {/* Menú Horizontal (Desktop) */}
-<nav className="hidden lg:flex items-center gap-6 mt-3 text-sm font-semibold">
+<nav className="hidden lg:flex items-center justify-center gap-6 mt-3 text-sm font-semibold">
 <a href="/" className="hover:opacity-70 transition-opacity" style={{ color: colorPrimario }}>
 Inicio
+</a>
+<a href="/productos-destacados" className="hover:opacity-70 transition-opacity" style={{ color: colorPrimario }}>Productos Destacados
+</a>
+<a href="/categorias" className="hover:opacity-70 transition-opacity" style={{ color: colorPrimario }}>Categorías
 </a>
 <a href="/promociones" className="hover:opacity-70 transition-opacity" style={{ color: colorPrimario }}>
 Promociones
@@ -176,7 +197,7 @@ Contacto
 </header>
 {/* Menú Lateral (Móvil) */}
 <div
-className={`fixed top-[180px] left-0 h-[calc(100vh-180px)] w-64 bg-white shadow-lg transform transition-transform duration-300 z-40 ${
+className={`fixed top-[200px] sm:top-[180px] left-0 h-[calc(100vh-200px)] sm:h-[calc(100vh-180px)] w-64 bg-white shadow-lg transform transition-transform duration-300 z-40 ${
 menuOpen ? 'translate-x-0' : '-translate-x-full'
 }`}
 >
@@ -186,15 +207,23 @@ menuOpen ? 'translate-x-0' : '-translate-x-full'
 Menú
 </h3>
 <nav className="space-y-2">
-{['Inicio', 'Promociones', 'Rafapuntos', 'Conócenos', 'Contacto'].map((item) => (
+{[
+{ name: 'Inicio', href: '/' },
+{ name: 'Productos Destacados', href: '/productos-destacados' },
+{ name: 'Categorías', href: '/categorias' },
+{ name: 'Promociones', href: '/promociones' },
+{ name: 'Rafapuntos', href: '/rafapuntos' },
+{ name: 'Conócenos', href: '/conocenos' },
+{ name: 'Contacto', href: '/contacto' }
+].map((item) => (
 <a
-key={item}
-href={`/${item.toLowerCase()}`}
+key={item.name}
+href={item.href}
 className="block px-4 py-2 rounded-lg transition-colors hover:bg-gray-100"
 style={{ color: colorPrimario }}
 onClick={() => setMenuOpen(false)}
 >
-{item}
+{item.name}
 </a>
 ))}
 </nav>

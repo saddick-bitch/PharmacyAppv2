@@ -1,4 +1,5 @@
 import { MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import type { Product, Sucursal, StoreType } from '../../src/types';
 
 interface ProductCardProps {
@@ -38,12 +39,14 @@ export function ProductCard({ producto, sucursal, colorPrimario, tipo, onOpen }:
           </span>
         )}
         {/* Badge de categoría */}
-        <div
-          className="absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-semibold"
+        <Link
+          to={`/categorias?categoria=${encodeURIComponent(producto.categoria)}`}
+          className="absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-semibold no-underline"
           style={{ backgroundColor: colorPrimario, color: 'white' }}
+          onClick={(e) => e.stopPropagation()}
         >
           {producto.categoria}
-        </div>
+        </Link>
       </div>
       {/* Información del producto */}
       <div className="p-4">

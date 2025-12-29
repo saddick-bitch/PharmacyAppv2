@@ -16,6 +16,11 @@ const [menuOpen, setMenuOpen] = useState(false);
 const [selectedSucursal, setSelectedSucursal] = useState(SUCURSALES[0]);
 const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 const [searchQuery, setSearchQuery] = useState('');
+const [iconErrors, setIconErrors] = useState<{[key: string]: boolean}>({});
+
+const handleIconError = (iconType: string) => {
+  setIconErrors(prev => ({ ...prev, [iconType]: true }));
+};
 const colorPrimario = storeType === 'farmacia' ? '#114b8c' : '#f9d000';
 const colorTexto = storeType === 'farmacia' ? 'white' : '#114b8c';
 // Filtrar productos destacados por tipo
@@ -45,6 +50,14 @@ const message = encodeURIComponent(
 );
 window.open(`https://wa.me/${selectedSucursal.whatsapp}?text=${message}`, '_blank');
 };
+
+const handleCategoryFilter = (categoria: string) => {
+setSearchQuery(categoria);
+};
+
+const clearFilter = () => {
+setSearchQuery('');
+};
 return (
 <div className="min-h-screen bg-gray-50">
 {/* HEADER */}
@@ -60,7 +73,11 @@ color: storeType === 'farmacia' ? 'white' : '#666'
 }}
 >
 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-<div className="text-2xl">💊</div>
+{!iconErrors.farmacia ? (
+  <img src="/icons/farmacia.png" alt="Farmacia" className="w-8 h-8" onError={() => handleIconError('farmacia')} />
+) : (
+  <div className="text-2xl">💊</div>
+)}
 </div>
 <div className="text-left hidden sm:block">
 <div className="font-bold text-sm">FARMACIAS</div>
@@ -76,7 +93,11 @@ color: storeType === 'libreria' ? '#114b8c' : '#666'
 }}
 >
 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-<div className="text-2xl">📚</div>
+{!iconErrors.libreria ? (
+  <img src="/icons/libreria.png" alt="Librería" className="w-8 h-8" onError={() => handleIconError('libreria')} />
+) : (
+  <div className="text-2xl">📚</div>
+)}
 </div>
 <div className="text-left hidden sm:block">
 <div className="font-bold text-sm">LIBRERÍAS</div>
@@ -96,8 +117,13 @@ style={{ color: colorPrimario }}
 {menuOpen ? <X size={24} /> : <Menu size={24} />}
 </button>
 
-<div className="lg:hidden text-xl font-bold" style={{ color: colorPrimario }}>
-{storeType === 'farmacia' ? '💊' : '📚'}
+<div className="lg:hidden text-xl font-bold flex items-center gap-2" style={{ color: colorPrimario }}>
+{!iconErrors[storeType] ? (
+  <img src={storeType === 'farmacia' ? '/icons/farmacia.png' : '/icons/libreria.png'} alt={storeType === 'farmacia' ? 'Farmacia' : 'Librería'} className="w-6 h-6" onError={() => handleIconError(storeType)} />
+) : (
+  <span className="text-2xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
+)}
+<span>{storeType === 'farmacia' ? 'San Rafael' : 'Marcela'}</span>
 </div>
 <div className="flex-1 max-w-md">
 <SmartSearch products={PRODUCTOS_EJEMPLO} tipo={storeType} />
@@ -108,7 +134,7 @@ onChange={(e) => {
 const sucursal = SUCURSALES.find(s => s.id === e.target.value);
 if (sucursal) setSelectedSucursal(sucursal);
 }}
-className="hidden sm:block px-4 py-2 border border-gray-300 rounded-lg focus:outline-none text-gray-900 text-sm"
+className="block sm:block px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 text-sm w-full sm:w-auto mt-2 sm:mt-0"
 style={{ borderColor: colorPrimario }}
 >
 {SUCURSALES.map(sucursal => (
@@ -119,8 +145,10 @@ style={{ borderColor: colorPrimario }}
 </select>
 </div>
 {/* Menú Desktop */}
-<nav className="hidden lg:flex items-center gap-6 mt-3 text-sm font-semibold">
+<nav className="hidden lg:flex items-center justify-center gap-6 mt-3 text-sm font-semibold">
 <a href="/" className="hover:opacity-70" style={{ color: colorPrimario }}>Inicio</a>
+<a href="/productos-destacados" className="hover:opacity-70" style={{ color: colorPrimario }}>Productos Destacados</a>
+<a href="/categorias" className="hover:opacity-70" style={{ color: colorPrimario }}>Categorías</a>
 <a href="/promociones" className="hover:opacity-70" style={{ color: colorPrimario }}>Promociones</a>
 <a href="/rafapuntos" className="hover:opacity-70" style={{ color: colorPrimario }}>Rafapuntos</a>
 <a href="/conocenos" className="hover:opacity-70" style={{ color: colorPrimario }}>Conócenos</a>
@@ -133,19 +161,27 @@ style={{ borderColor: colorPrimario }}
 {menuOpen && (
 <>
 <div className="fixed inset-0 bg-black bg-opacity-50 z-30" onClick={() => setMenuOpen(false)} />
-<div className="fixed top-[180px] left-0 h-[calc(100vh-180px)] w-64 bg-white shadow-lg z-40">
+<div className="fixed top-[200px] sm:top-[180px] left-0 h-[calc(100vh-200px)] sm:h-[calc(100vh-180px)] w-64 bg-white shadow-lg z-40">
 <div className="p-6">
 <h3 className="font-bold text-lg mb-4" style={{ color: colorPrimario }}>Menú</h3>
 <nav className="space-y-2">
-{['Inicio', 'Promociones', 'Rafapuntos', 'Conócenos', 'Contacto'].map((item) => (
+{[
+  { name: 'Inicio', href: '/' },
+  { name: 'Productos Destacados', href: '/productos-destacados' },
+  { name: 'Categorías', href: '/categorias' },
+  { name: 'Promociones', href: '/promociones' },
+  { name: 'Rafapuntos', href: '/rafapuntos' },
+  { name: 'Conócenos', href: '/conocenos' },
+  { name: 'Contacto', href: '/contacto' }
+].map((item) => (
 <a
-key={item}
-href={`/${item.toLowerCase()}`}
+key={item.name}
+href={item.href}
 className="block px-4 py-2 rounded-lg hover:bg-gray-100"
 style={{ color: colorPrimario }}
 onClick={() => setMenuOpen(false)}
 >
-{item}
+{item.name}
 </a>
 ))}
 </nav>
@@ -171,7 +207,7 @@ style={{ backgroundColor: `${colorPrimario}15` }}
 {producto.img ? (
 <img src={producto.img} alt={producto.nombre} className="h-full w-full object-contain p-8" />
 ) : (
-<span className="text-8xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
+<img src={storeType === 'farmacia' ? '/icons/farmacia.png' : '/icons/libreria.png'} alt={storeType === 'farmacia' ? 'Farmacia' : 'Librería'} className="w-24 h-24" />
 )}
 </div>
 {/* Contenido */}
@@ -197,6 +233,15 @@ style={{ backgroundColor: `${colorPrimario}15` }}
 <div className="text-sm text-gray-500 mb-4">
 Con Rafapex, tú salud al mejor precio que siempre sí ✨
 </div>
+{producto.categoria && (
+<button
+onClick={() => handleCategoryFilter(producto.categoria)}
+className="inline-block px-3 py-1 text-xs font-medium rounded-full mb-4 hover:opacity-80 transition-opacity"
+style={{ backgroundColor: `${colorPrimario}20`, color: colorPrimario }}
+>
+{producto.categoria}
+</button>
+)}
 {/* Precio y botón */}
 <div className="flex items-center justify-between">
 <span className="text-3xl font-bold" style={{ color: colorPrimario }}>
@@ -231,8 +276,31 @@ placeholder="Buscar producto"
 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 text-gray-900 text-sm"
 style={{ borderColor: colorPrimario }}
 />
+{searchQuery && (
+<button
+onClick={clearFilter}
+className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+>
+<X size={16} />
+</button>
+)}
 </div>
 </div>
+{/* Indicador de filtro */}
+{searchQuery && (
+<div className="mb-4 flex items-center justify-between">
+<span className="text-sm text-gray-600">
+Mostrando productos relacionados con: <strong>"{searchQuery}"</strong>
+</span>
+<button
+onClick={clearFilter}
+className="text-xs px-3 py-1 rounded-full hover:bg-gray-100 transition-colors"
+style={{ color: colorPrimario }}
+>
+Limpiar filtro
+</button>
+</div>
+)}
 {/* Grid de productos */}
 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
 {productosFiltrados.map((producto) => (
@@ -248,11 +316,23 @@ style={{ backgroundColor: `${colorPrimario}15` }}
 {producto.img ? (
 <img src={producto.img} alt={producto.nombre} className="h-full w-full object-contain p-4" />
 ) : (
-<span className="text-5xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
+<img src={storeType === 'farmacia' ? '/icons/farmacia.png' : '/icons/libreria.png'} alt={storeType === 'farmacia' ? 'Farmacia' : 'Librería'} className="w-12 h-12" />
 )}
 </div>
 <div className="p-4">
 <h3 className="font-bold text-sm mb-2 line-clamp-2">{producto.nombre}</h3>
+{producto.categoria && (
+<button
+onClick={(e) => {
+e.stopPropagation(); // Prevent card click when clicking category
+handleCategoryFilter(producto.categoria);
+}}
+className="inline-block px-2 py-1 text-xs font-medium rounded-full mb-2 hover:opacity-80 transition-opacity"
+style={{ backgroundColor: `${colorPrimario}20`, color: colorPrimario }}
+>
+{producto.categoria}
+</button>
+)}
 <p className="text-xl font-bold" style={{ color: colorPrimario }}>
 ${producto.precio.toFixed(2)}
 </p>
@@ -356,7 +436,7 @@ style={{ minHeight: '300px' }}
 {selectedProduct.img ? (
 <img src={selectedProduct.img} alt={selectedProduct.nombre} className="max-h-72 object-contain" />
 ) : (
-<span className="text-8xl">{storeType === 'farmacia' ? '💊' : '📚'}</span>
+<img src={storeType === 'farmacia' ? '/icons/farmacia.png' : '/icons/libreria.png'} alt={storeType === 'farmacia' ? 'Farmacia' : 'Librería'} className="w-24 h-24" />
 )}
 </div>
 <div>
